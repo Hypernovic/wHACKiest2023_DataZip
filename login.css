@@ -1,0 +1,17 @@
+.override{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+.logo img{
+    zoom:0.2;
+}
+
+
+.logo-text{
+
+}

@@ -1,0 +1,208 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask Auth Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/styles.css') }}">
+</head>
+
+<style>
+</style>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+ 
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg py-3 sticky-top navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img class="logo" style="zoom:0.4 !important" src="{{ url_for('static',     filename='images/logo.png') }}" alt="">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+                    </li>
+                    
+
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.profile') }}" class="nav-link">
+                            Profile
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url_for('auth.logout') }}" class="nav-link">
+                            Logout
+                        </a>
+                    </li>
+                    
+                    {% endif %}
+
+                    {% if not current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('auth.login') }}" class="nav-link">
+                            Login
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    
+
+
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </nav><!-- //NAVBAR -->
+ 
+    <!-- HERO -->
+    <div class="hero vh-100 d-flex align-items-center" style="background-image: url('https://cdn.britannica.com/86/170586-050-AB7FEFAE/Taj-Mahal-Agra-India.jpg');">
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-7 mx-auto text-center">
+                    <h1 class="display-4 text-white">Gamifying Tourism</h1>
+                    <p class="text-white my-3">Thats Gotcha</p>
+                </div>
+            </div>
+        </div>
+    </div><!-- //HERO -->
+ 
+ 
+    <!-- PROJECTS -->
+    <section id="portfolio">
+        <div class="container-fluid">
+            <div class="row mb-5">
+                <div class="col-md-8 mx-auto text-center">
+                    <h6 class="text-primary">FEATURES</h6>
+                    <h1>Our Recent Addition</h1>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="project">
+                        <img style="width: 400px; height: 400px;" src="https://www.socios.com/wp-content/uploads/2022/01/MULTIPLAYER_LEADER_BOARD_REAL-PLAYERS-1.png" alt="">
+                        <div class="overlay">
+                            <div>
+                                <h4 class="text-white">Leaderboard</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-6">
+                    <div class="project">
+                        <img style="width: 400px; height: 400px;" src="https://static.vecteezy.com/system/resources/previews/005/337/802/original/icon-symbol-chat-outline-illustration-free-vector.jpg" alt="">
+                        <div class="overlay">
+                            <div>
+                                <h4 class="text-white">Chat with Strangers</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="project">
+                        <img style="width: 400px; height: 400px;" src="https://i.pinimg.com/originals/72/3d/0a/723d0af616b1fe7d5c7e56a3532be3cd.png" alt="">
+                        <div class="overlay">
+                            <div>
+                                <h4 class="text-white">Gamify</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section><!-- PROJECTS -->
+ 
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-8 mx-auto text-center">
+                    <h6 class="text-primary">CONTACT</h6>
+                    <h1>Get In Touch</h1>
+                </div>
+            </div>
+ 
+            <form action="" class="row g-3 justify-content-center">
+                <div class="col-md-5">
+                    <input type="text" class="form-control" placeholder="Full Name">
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" placeholder="Enter E-mail">
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" placeholder="Enter Subject">
+                </div>
+                <div class="col-md-10">
+                    <textarea name="" id="" cols="30" rows="5" class="form-control"
+                        placeholder="Enter Message"></textarea>
+                </div>
+                <div class="col-md-10 d-grid">
+                    <button class="btn btn-primary">Contact</button>
+                </div>
+            </form>
+ 
+        </div>
+    </section><!-- CONTACT -->
+ 
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-4">
+                        <img class="logo" src="{{ url_for('static',     filename='images/logo.png') }}" alt="">
+                    </div>
+                    <div class="col-lg-2">
+                        <h5 class="text-white">Brand</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Features</a></li>
+                            <li><a href="#">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2">
+                        <h5 class="text-white">More</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">FAQ's</a></li>
+                            <li><a href="#">Privacy & Policy</a></li>
+                            <li><a href="#">Warranty</a></li>
+                            <li><a href="#">Shipment</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="text-white">Contact</h5>
+                        <ul class="list-unstyled">
+                            <li>9963622622</li>
+                            <li>hypernovic@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+    </footer>
+ 
+ 
+ 
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

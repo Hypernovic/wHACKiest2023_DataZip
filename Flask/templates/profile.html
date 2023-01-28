@@ -1,0 +1,194 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+  src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+  integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
+  crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/sup.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/animate.css') }}" />
+  </head>
+
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg py-3 sticky-top navbar-light bg-white">
+      <div class="container">
+          <a class="navbar-brand" href="#">
+              <img class="logo" src="{{ url_for('static',     filename='images/logo.png') }}" alt="">
+              
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+                  </li>
+                  
+
+                  {% if current_user.is_authenticated %}
+                  <li class="nav-item">
+                      <a href="{{ url_for('main.profile') }}" class="nav-link">
+                          Profile
+                      </a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a href="{{ url_for('auth.logout') }}" class="nav-link">
+                          Logout
+                      </a>
+                  </li>
+                  
+                  {% endif %}
+
+                  {% if not current_user.is_authenticated %}
+                  <li class="nav-item">
+                      <a href="{{ url_for('auth.login') }}" class="nav-link">
+                          Login
+                      </a>
+                  </li>
+                  {% endif %}
+
+                  
+
+
+
+                  
+              </ul>
+
+          </div>
+      </div>
+    </nav><!-- //NAVBAR -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Repository</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Title</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Description</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="drop-access" class="col-form-label">Allow Accessiblity to</label>
+                <input class="form-control" id="drop-access">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="createRepo()" data-bs-dismiss="modal">Create</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="main-body">
+
+    <ul class="check">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <div class="container">
+      <div class="main row row-cols-1 row-cols-lg-2 align-items-center">
+        <div class="main-col col p-3">
+          <div class="row">
+            <div class="col-5 col-lg-4 align-self-center text-center">
+              <!-- for edits -->
+              <img
+                src="{{ pic }}"
+                class="mx-3 img-fluid rounded"
+              />
+            </div>
+            <div class="col-7">
+              <!-- for edits -->
+              <h1 class="display-5" id="nameof">{{ name }}</h1>
+              <p class="fw-light">
+                {{ bio }}
+              </p>
+              <div class="btn-wrapper text-lg">
+                <a
+                  href="{{ url_for('main.designer') }}"
+                  class="btn btn-outline-dark btn-icon"
+                >
+                  <span>
+                    <i class="bi bi-columns-gap"></i>
+                  </span>
+                </a>
+
+                <a
+                  href="{{ url_for('main.editor') }}"
+                  class="btn btn-outline-dark btn-icon"
+                >
+                  <span>
+                    <i class="bi bi-code-slash"></i>
+                  </span>
+                </a>
+                <a
+                  href="{{ url_for('main.flasher') }}"
+                  class="btn btn-outline-dark btn-icon"
+                >
+                  <span>
+                    <i class="bi bi-flag"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-col col align-self-center">
+          <div class="row">
+            <div class="scrollable-div fw-light rounded">
+              <div class="card w-auto m-2">
+                <div class="card-body">
+                  <!-- REPOSIRY -->
+                  <h5 class="card-title">Add Repository</h5>
+                    <button type="button" class=" card-text1 btn btn-primary" 
+        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
+                </div>
+              </div>
+              <div class="repoList">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{{ url_for('static',     filename='javascript/addRepository.js') }}"></script>
+  </body>
+</html>
